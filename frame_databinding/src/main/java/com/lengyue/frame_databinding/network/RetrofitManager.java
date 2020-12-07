@@ -35,6 +35,10 @@ public class RetrofitManager<T> {
         return (T) retrofitManager.retrofitApiService;
     }
 
+    public OkHttpClient getOkHttpClient() {
+        return okHttpClient;
+    }
+
     public void initRetrofit(String url, Class classz) {
         DEFAULT_SERVER = url;
         okHttpClient = new OkHttpClient.Builder()

@@ -3,6 +3,7 @@ package com.lengyue.frame_databinding.views.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -29,6 +30,8 @@ public class BottomWheelDialog<T> extends CustomDialog {
     private Context mContext;
     private OnDialogSureListener<T> onDialogSureListener;
     private WheelView<T> wheelView;
+    private TextView sureTextView;
+    private TextView cancelTextView;
 
     public BottomWheelDialog(@NonNull Context context) {
         super(context);
@@ -48,7 +51,7 @@ public class BottomWheelDialog<T> extends CustomDialog {
         RelativeLayout.LayoutParams relativeLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, dp2px(50));
         relativeLayout.setLayoutParams(relativeLayoutParams);
 
-        TextView sureTextView = new TextView(mContext);
+        sureTextView = new TextView(mContext);
         RelativeLayout.LayoutParams sureLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         sureLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         sureLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
@@ -65,7 +68,7 @@ public class BottomWheelDialog<T> extends CustomDialog {
         });
         relativeLayout.addView(sureTextView);
 
-        TextView cancelTextView = new TextView(mContext);
+        cancelTextView = new TextView(mContext);
         RelativeLayout.LayoutParams cancelLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         cancelLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         cancelLayoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
@@ -105,6 +108,26 @@ public class BottomWheelDialog<T> extends CustomDialog {
 
     public void setData(List<T> data){
         wheelView.setData(data);
+    }
+
+    public void setSureMsg(String msg){
+        if (sureTextView != null){
+            if (TextUtils.isEmpty(msg)){
+                sureTextView.setText("确定");
+            }else{
+                sureTextView.setText(msg);
+            }
+        }
+    }
+
+    public void setCancelMsg(String msg){
+        if (cancelTextView != null){
+            if (TextUtils.isEmpty(msg)){
+                cancelTextView.setText("取消");
+            }else{
+                cancelTextView.setText(msg);
+            }
+        }
     }
 
     public void setSelectIndex(int index){
