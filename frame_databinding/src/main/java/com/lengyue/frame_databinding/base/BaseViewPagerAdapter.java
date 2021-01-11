@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.viewpager.widget.PagerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public abstract class BaseViewPagerAdapter<T, B extends ViewDataBinding> extends
     private List<T> mList;
 
     public BaseViewPagerAdapter(Context context) {
-        this.mContext = context;
+        this(context, new ArrayList<>());
     }
 
     public BaseViewPagerAdapter(Context context, List<T> list) {

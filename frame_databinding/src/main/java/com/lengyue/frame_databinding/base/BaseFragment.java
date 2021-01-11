@@ -6,12 +6,16 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.JsonSyntaxException;
 import com.lengyue.frame_databinding.R;
 import com.lengyue.frame_databinding.utils.ToastUtil;
@@ -39,6 +43,15 @@ public abstract class BaseFragment<VM extends BaseViewModel, VDB extends ViewDat
      * 处理逻辑业务
      */
     protected abstract void processLogic(Bundle savedInstanceState);
+
+    public String getTitle(){
+        return "";
+    }
+
+    @DrawableRes
+    public int getIcon(){
+        return 0;
+    }
 
     protected VM mViewModel;
     protected View mContentView;

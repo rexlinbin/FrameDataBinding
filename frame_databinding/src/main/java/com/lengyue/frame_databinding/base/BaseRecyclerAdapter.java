@@ -24,7 +24,7 @@ public abstract class BaseRecyclerAdapter<T, B extends ViewDataBinding> extends 
     private List<T> mList;
 
     public BaseRecyclerAdapter(Context context) {
-        this.mContext = context;
+        this(context, new ArrayList<>());
     }
 
     public BaseRecyclerAdapter(Context context, List<T> list) {
