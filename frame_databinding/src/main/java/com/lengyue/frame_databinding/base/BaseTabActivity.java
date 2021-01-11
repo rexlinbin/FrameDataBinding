@@ -25,7 +25,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public abstract class BaseTabActivity<VM extends BaseViewModel> extends BaseActivity<VM, ActivityTabBinding> {
-    private boolean isMainActivity = true;
 
     public abstract List<BaseFragment> getFragments();
 
@@ -106,13 +105,13 @@ public abstract class BaseTabActivity<VM extends BaseViewModel> extends BaseActi
         }
     }
 
-    public void setMainActivity(boolean mainActivity) {
-        isMainActivity = mainActivity;
+    public boolean isMainActivity() {
+        return true;
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && isMainActivity) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && isMainActivity()) {
             exitBy2Click();
         }
         return false;
