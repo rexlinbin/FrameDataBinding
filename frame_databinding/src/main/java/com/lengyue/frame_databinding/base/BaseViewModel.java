@@ -42,6 +42,10 @@ public abstract class BaseViewModel<Api> extends AndroidViewModel {
         return (Api) RetrofitManager.getInstance().getApiService();
     }
 
+    protected Api getApiService(String baseUrl) {
+        return (Api) RetrofitManager.getInstance().getApiService(baseUrl);
+    }
+
     public void setObjectLifecycleTransformer(LifecycleTransformer objectLifecycleTransformer) {
         this.objectLifecycleTransformer = objectLifecycleTransformer;
     }

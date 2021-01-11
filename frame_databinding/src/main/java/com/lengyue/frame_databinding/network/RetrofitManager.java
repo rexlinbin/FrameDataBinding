@@ -16,9 +16,10 @@ public class RetrofitManager<T> {
     private static RetrofitManager retrofitManager;
     private T retrofitApiService;
     private OkHttpClient okHttpClient;
+    private Class retrofitClass;
 
     private RetrofitManager() {
-
+        initOkHttpClient();
     }
 
     public static <T> RetrofitManager getInstance() {
@@ -36,12 +37,25 @@ public class RetrofitManager<T> {
         return (T) retrofitManager.retrofitApiService;
     }
 
+    public T getApiService(String baseUrl) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        return (T) retrofit.create(retrofitClass);
+    }
+
     public OkHttpClient getOkHttpClient() {
         return okHttpClient;
     }
 
-    public void initRetrofit(String url, Class classz) {
-        DEFAULT_SERVER = url;
+    public void setOkHttpClient(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
+    }
+
+    private void initOkHttpClient(){
         okHttpClient = new OkHttpClient.Builder()
                 //设置日志打印
                 .addInterceptor(new HttpLogInterceptor())
@@ -50,7 +64,11 @@ public class RetrofitManager<T> {
                 //网络请求超时时间单位为秒
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build();
+    }
 
+    public void initRetrofit(String url, Class classz) {
+        DEFAULT_SERVER = url;
+        retrofitClass = classz;
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(DEFAULT_SERVER)
@@ -62,15 +80,7 @@ public class RetrofitManager<T> {
 
     public void initRetrofit(String url, Class classz, Interceptor interceptor) {
         DEFAULT_SERVER = url;
-        okHttpClient = new OkHttpClient.Builder()
-                //设置日志打印
-                .addInterceptor(interceptor)
-                //失败重连
-                .retryOnConnectionFailure(true)
-                //网络请求超时时间单位为秒
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .build();
-
+        retrofitClass = classz;
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(DEFAULT_SERVER)
