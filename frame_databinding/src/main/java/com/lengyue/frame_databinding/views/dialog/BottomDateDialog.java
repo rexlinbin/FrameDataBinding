@@ -37,6 +37,7 @@ public class BottomDateDialog extends CustomDialog {
     private LinearLayout contentView;
     private OnDialogSureListener onDialogSureListener;
     private Date selectDate = new Date();
+    private DatePickerView datePickerView;
 
     public BottomDateDialog(@NonNull Context context) {
         super(context);
@@ -99,7 +100,7 @@ public class BottomDateDialog extends CustomDialog {
     }
 
     private void initDatePicker(){
-        final DatePickerView datePickerView = new DatePickerView(mContext);
+        datePickerView = new DatePickerView(mContext);
         LinearLayout.LayoutParams dateLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(200));
         datePickerView.setLayoutParams(dateLayoutParams);
         datePickerView.setTextSize(24, true);
@@ -129,6 +130,10 @@ public class BottomDateDialog extends CustomDialog {
         });
 
         contentView.addView(datePickerView);
+    }
+
+    public DatePickerView getDatePickerView() {
+        return datePickerView;
     }
 
     public void setOnDialogSureListener(OnDialogSureListener onDialogSureListener){
