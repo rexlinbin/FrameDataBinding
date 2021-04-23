@@ -79,6 +79,14 @@ public class RetrofitManager<T> {
     }
 
     public void initRetrofit(String url, Class classz, Interceptor interceptor) {
+        okHttpClient = new OkHttpClient.Builder()
+                //设置日志打印
+                .addInterceptor(interceptor)
+                //失败重连
+                .retryOnConnectionFailure(true)
+                //网络请求超时时间单位为秒
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .build();
         DEFAULT_SERVER = url;
         retrofitClass = classz;
         Retrofit retrofit = new Retrofit.Builder()

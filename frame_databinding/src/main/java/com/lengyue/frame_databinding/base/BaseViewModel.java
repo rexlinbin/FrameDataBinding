@@ -15,7 +15,10 @@ import com.lengyue.frame_databinding.network.Interceptor.OfflineCacheInterceptor
 import com.lengyue.frame_databinding.network.ParamsBuilder;
 import com.lengyue.frame_databinding.network.RetrofitManager;
 import com.lengyue.frame_databinding.network.downloadutils.DownFileUtils;
+import com.lengyue.frame_databinding.utils.GsonUtil;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +26,8 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
@@ -44,6 +49,11 @@ public abstract class BaseViewModel<Api> extends AndroidViewModel {
 
     protected Api getApiService(String baseUrl) {
         return (Api) RetrofitManager.getInstance().getApiService(baseUrl);
+    }
+
+    public RequestBody getRequestBody(Object object){
+        String json = GsonUtil.ser(object);
+        return RequestBody.create(MediaType.parse("Content-Type, application/json"),json);
     }
 
     public void setObjectLifecycleTransformer(LifecycleTransformer objectLifecycleTransformer) {

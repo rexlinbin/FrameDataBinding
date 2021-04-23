@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="data"
+            type="String" />
+        <variable
+            name="itemListener"
+            type="com.lengyue.frame_databinding.base.BaseRecyclerAdapter.OnBindingItemListener" />
     </data>
 
     <LinearLayout
