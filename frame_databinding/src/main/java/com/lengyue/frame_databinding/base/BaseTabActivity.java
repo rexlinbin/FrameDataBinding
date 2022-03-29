@@ -105,16 +105,23 @@ public abstract class BaseTabActivity<VM extends BaseViewModel> extends BaseActi
         }
     }
 
+    boolean isMainActivity = true;
     public boolean isMainActivity() {
-        return true;
+        return isMainActivity;
+    }
+
+    public void setMainActivity(boolean mainActivity) {
+        isMainActivity = mainActivity;
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && isMainActivity()) {
             exitBy2Click();
+            return false;
+        }else{
+            return super.onKeyDown(keyCode, event);
         }
-        return false;
     }
 
     private static Boolean isExit = false;
